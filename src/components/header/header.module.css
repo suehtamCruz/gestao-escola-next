@@ -1,0 +1,17 @@
+.header {
+    align-items: center;
+    background-color: #5f6794;
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    padding: 16px;
+    width: 100%;
+} 
+
+.link {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 20px;
+}
