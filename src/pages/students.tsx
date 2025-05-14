@@ -1,6 +1,6 @@
-import { useState } from "react";  
+import { useEffect, useState } from "react";  
 import styles from "../styles/students.module.css";
-import { getStudentByName } from "services/students";
+import { getStudentByName, getStudents } from "services/students";
 
 export default function Students() {
   const [search, setSearch] = useState("");
@@ -8,6 +8,10 @@ export default function Students() {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
+
+  useEffect(() => {
+    getStudents().then((data) => console.log(data));
+  }, []);
 
   const searchStudents = () => {
     console.log(search); 

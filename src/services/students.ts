@@ -9,14 +9,14 @@ export interface Student {
   codEscola: number;
 }
 
-export const getStudents = async () => {
-  const response = await fetch(`${process.env.API_URL}/students`);
+export const getStudents = async () => { 
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students`);
   const data = await response.json();
   return data as Student[];
 };
 
 export const getStudentById = async (id: string) => {
-  const response = await fetch(`${process.env.API_URL}/students/${id}`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students/${id}`);
   const data = await response.json();
   return data as Student;
 };
@@ -25,14 +25,14 @@ export const getStudentByName = async (name: string) => {
   const param = "?name=" + name;
 
   const response = await fetch(
-    `${process.env.API_URL}/students/find-by-name${param}`
+    `${process.env.NEXT_PUBLIC_API_URL}/students/find-by-name${param}`
   );
   const data = await response.json();
   return data as Student;
 };
 
  export const createStudent = async (student: Student) => {
-    const response = await fetch(`${process.env.API_URL}/students`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const getStudentByName = async (name: string) => {
   }; 
 
   export const updateStudent = async (student: Student) => {
-    const response = await fetch(`${process.env.API_URL}/students/${student.id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students/${student.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export const getStudentByName = async (name: string) => {
   };
 
   export const deleteStudent = async (id: string) => {
-    const response = await fetch(`${process.env.API_URL}/students/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students/${id}`, {
       method: "DELETE",
     });
     const data = await response.json();
