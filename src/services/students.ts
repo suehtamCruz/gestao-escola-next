@@ -9,14 +9,27 @@ export interface Student {
   codEscola: number;
 }
 
-export const getStudents = async () => { 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students`);
+const headers = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+};
+
+export const getStudents = async () => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students`, {
+    headers,
+  });
   const data = await response.json();
   return data as Student[];
 };
 
 export const getStudentById = async (id: string) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students/${id}`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/students/${id}`,
+    {
+      headers,
+    }
+  );
   const data = await response.json();
   return data as Student;
 };
@@ -31,34 +44,37 @@ export const getStudentByName = async (name: string) => {
   return data as Student;
 };
 
- export const createStudent = async (student: Student) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(student),
-    });
-    const data = await response.json();
-    return data as Student;
-  }; 
+export const createStudent = async (student: Student) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(student),
+  });
+  const data = await response.json();
+  return data as Student;
+};
 
-  export const updateStudent = async (student: Student) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students/${student.id}`, {
+export const updateStudent = async (student: Student) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/students/${student.id}`,
+    {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify(student),
-    });
-    const data = await response.json();
-    return data as Student;
-  };
+    }
+  );
+  const data = await response.json();
+  return data as Student;
+};
 
-  export const deleteStudent = async (id: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students/${id}`, {
+export const deleteStudent = async (id: string) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/students/${id}`,
+    {
       method: "DELETE",
-    });
-    const data = await response.json();
-    return data as Student;
-  };
+      headers,
+    }
+  );
+  const data = await response.json();
+  return data as Student;
+};

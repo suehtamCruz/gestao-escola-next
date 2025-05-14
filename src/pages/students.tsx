@@ -9,7 +9,7 @@ export default function Students() {
     setSearch(event.target.value);
   };
 
-  useEffect(() => {
+  useEffect( () => {
     getStudents().then((data) => console.log(data));
   }, []);
 
