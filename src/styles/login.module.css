@@ -39,3 +39,9 @@
     height: 40px;
     width: 100%;
 }
+
+.button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+ 

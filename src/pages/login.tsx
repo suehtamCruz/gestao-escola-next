@@ -1,10 +1,21 @@
 import styles from "styles/login.module.css";
 import { login } from "services/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); 
+    if (token) {
+      toast.info("Usuário já autenticado!");
+      router.push("/students");
+    }
+  }, [router]);
 
   const handleSetName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -14,8 +25,17 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
-    login(name, password).then((data) => console.log(data));
+  const handleLogin = async () => {
+    await login(name, password).then(
+      () => {
+        toast.success("Login realizado com sucesso!");
+        router.push("/students");
+      },
+      (error) => {
+        console.log(error);
+        toast.error("Erro ao realizar login!");
+      }
+    );
   };
 
   return (
@@ -30,7 +50,9 @@ export default function Login() {
             placeholder="Senha"
             onChange={handleSetPassword}
           />
-          <button onClick={handleLogin} className={styles.button}>Entrar</button>
+          <button onClick={handleLogin} className={styles.button}>
+            Entrar
+          </button>
         </form>
       </section>
     </div>

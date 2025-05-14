@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import Header from "components/header/header";
 import { useEffect, useState } from "react";
 import Login from "./login";
-
+import { ToastContainer } from "react-toastify";
 export default function App({ Component, pageProps }: AppProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
@@ -13,11 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [isAuthenticated]);
 
   if (isAuthenticated === null) {
-    return (
-      <div>
-      
-      </div>
-    );
+    return <div></div>;
   }
 
   return (
@@ -28,10 +24,12 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </>
       ) : (
-        <>  
+        <>
           <Login />
         </>
       )}
+
+      <ToastContainer />
     </div>
   );
 }
